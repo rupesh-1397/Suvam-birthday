@@ -112,7 +112,7 @@
   }
 
   .section-alt{
-    background:rgba(13,26,43,0.18);
+    background:rgba(13,26,43,0.07);
     backdrop-filter:blur(3px);
     -webkit-backdrop-filter:blur(3px);
   }
@@ -303,7 +303,7 @@
     gap:0;
     margin-top:30px;
     border:1px solid rgba(140,160,179,0.18);
-    background:rgba(15,30,51,0.07);
+    background:rgba(15,30,51,0.035);
     backdrop-filter:blur(4px);
     -webkit-backdrop-filter:blur(4px);
   }
@@ -454,16 +454,23 @@
     .photo.size-lg img{ height:300px; }
   }
   .photo-cap{
-    position:absolute; left:0; right:0; bottom:8px;
+    position:absolute; left:6px; right:6px; bottom:6px;
+    z-index:4;
     text-align:center;
-    font-size:11px;
+    font-size:12px;
     line-height:1.35;
-    color:var(--gold-bright);
-    padding:0 8px;
-    font-weight:600;
-    text-shadow:0 1px 8px rgba(0,0,0,0.9), 0 0 10px rgba(255,201,120,0.18);
+    color:#fff3d2 !important;
+    background:rgba(8,14,24,0.78);
+    border:1px solid rgba(255,201,120,0.28);
+    border-radius:2px;
+    padding:5px 8px;
+    font-weight:700;
+    letter-spacing:0.01em;
+    text-shadow:0 1px 4px rgba(0,0,0,0.95), 0 0 9px rgba(255,201,120,0.35);
+    opacity:1 !important;
+    mix-blend-mode:normal;
   }
-  .photo.size-lg .photo-cap{ font-size:12.5px; bottom:12px; }
+  .photo.size-lg .photo-cap{ font-size:12.5px; bottom:8px; }
 
   /* ---------------- DEFECTS ---------------- */
   .defect{
@@ -471,7 +478,7 @@
     border-left:3px solid var(--stamp-red);
     padding:18px 18px;
     margin-top:16px;
-    background:rgba(15,30,51,0.07);
+    background:rgba(15,30,51,0.035);
     backdrop-filter:blur(4px);
     -webkit-backdrop-filter:blur(4px);
   }
@@ -854,9 +861,9 @@
 
   // Three depth layers make the sky feel photographic rather than like a flat particle effect.
   const LAYERS = [
-    { count:220, minR:0.35, maxR:0.85, alphaMin:0.28, alphaMax:0.68, speedMin:0.20, speedMax:0.55 },
-    { count:95,  minR:0.55, maxR:1.25, alphaMin:0.38, alphaMax:0.86, speedMin:0.45, speedMax:0.90 },
-    { count:30,  minR:0.95, maxR:2.10, alphaMin:0.55, alphaMax:1.00, speedMin:0.70, speedMax:1.35 }
+    { count:220, minR:0.35, maxR:0.85, alphaMin:0.42, alphaMax:0.82, speedMin:0.20, speedMax:0.55 },
+    { count:95,  minR:0.55, maxR:1.25, alphaMin:0.52, alphaMax:0.94, speedMin:0.45, speedMax:0.90 },
+    { count:30,  minR:0.95, maxR:2.10, alphaMin:0.68, alphaMax:1.00, speedMin:0.70, speedMax:1.35 }
   ];
 
   function makeStar(layer){
@@ -983,7 +990,7 @@
 
   // More frequent shooting stars, with up to two visible at once for a livelier sky.
   const shootings = [];
-  let nextShootAt = performance.now() + 1800 + Math.random() * 2500;
+  let nextShootAt = performance.now() + 700 + Math.random() * 1400;
 
   function spawnShootingStar(now){
     const startX = W * (0.04 + Math.random() * 0.62);
@@ -996,16 +1003,16 @@
       vx:Math.cos(angle) * speed,
       vy:Math.sin(angle) * speed,
       life:0,
-      maxLife:34 + Math.random() * 14,
+      maxLife:48 + Math.random() * 20,
       width:0.9 + Math.random() * 0.8
     });
 
-    nextShootAt = now + 2200 + Math.random() * 3800;
+    nextShootAt = now + 1300 + Math.random() * 1900;
   }
 
   function maybeSpawnShootingStar(now){
     if(reduceMotionQuery.matches) return;
-    if(now > nextShootAt && shootings.length < 2) spawnShootingStar(now);
+    if(now > nextShootAt && shootings.length < 3) spawnShootingStar(now);
   }
 
   function drawStatic(){
